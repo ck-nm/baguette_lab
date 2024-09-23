@@ -6,9 +6,31 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/8e0b5c640f.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+
+   <header class="<%= (admin_signed_in? ? "admin_header" : "" ) %>">
+      <div class="header-content">
+      <%= link_to 'BaguetteLab', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %>
+        <ul class="flex">
+          <% if admin_signed_in? %>
+            <li><%= link_to '投稿一覧',  admin_posts_path %></li>
+            <li><%= link_to '会員一覧',  admin_users_path %></li>
+            <li><%= link_to 'コメント一覧',  admin_comments_path %></li>
+            <li><%= link_to 'レビュー一覧',  admin_reviews_path %></li>
+            <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
+          <% elsif public_signed_in? %>
+            <p>ようこそ、<%= current_public.full_name %>さん</p>
+            <li><%= link_to 'マイページ', mypage_path %></li>
+            <li><%= link_to '投稿一覧', posts_path %></li>
+            <li><%= link_to 'ログアウト', destroy_public_session_path, method: :delete %></li>
+          <% end %>
+        </ul>
+
+      </div>
+    </header>
 
   <body>
     <%= yield %>
