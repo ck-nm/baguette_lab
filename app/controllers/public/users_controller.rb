@@ -1,8 +1,13 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_public!
-  before_action :set_current_public
+  before_action :ensure_correct_public, only: [:edit, :update]
 
   def show
+  end
+  
+  def index
+    @publics = Public.all
+    @post = Post.new
   end
 
   def edit
@@ -32,6 +37,6 @@ class Public::UsersController < ApplicationController
   end
 
   def public_params
-    params.require(:public).permit(:name, :introduction, :profile_image)
+    params.require(:public).permit(:name, :introduction, :image)
   end
 end
