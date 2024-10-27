@@ -1,4 +1,14 @@
-<%= form_with url: public_posts_path, method: :post, local: true do |f| %>
+<%
+  if post.id == nil
+    target_url = public_posts_path
+    target_method = :post
+  else
+    target_url = public_post_path(post)
+    target_method = :patch
+  end
+%>
+
+<%= form_with model: post, url: target_url, method: target_method, local: true do |f| %>
 
   <div class="form-group">
     <%= f.label :title %>
@@ -8,10 +18,10 @@
     <%= f.label :opinion %>
     <%= f.text_area :opinion, class: 'form-control post_body' %>
   </div>
-  
 
-    
-  
+
+
+
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
   </div>

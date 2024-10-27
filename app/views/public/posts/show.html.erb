@@ -1,3 +1,31 @@
-タイトル:<%= @post.title%>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User info</h2>
+      <%= render 'public/users/info', public: @post.user %>
+      <h2 class="mt-3">New post</h2>
+      <%= render 'form', post: Post.new %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+  		<h2>post detail</h2>
+  		<table class='table'>
+  		  <tr>
+          <td><%#= link_to @post.user.name,  do %>
+            <%= image_tag @post.user.get_profile_image, size: "100x100" %><br>
+            <%= @post.user.name %>
+            <%# end %>
+          </td>
+          <td><%= @post.title %></td>
+          <td><%= @post.opinion %></td>
+          <% if @post.user == current_public %>
+            <td><%= link_to 'Edit', edit_public_post_path(@post), class: "btn btn-sm btn-success edit_post_#{@post.id}" %></td>
+            <td><%= link_to 'Destroy', public_post_path(@post), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_post_#{@post.id}" %></td>
+          <% end %>
+        </tr>
+      </table>
+      </div>
 
-オピニオン：<%= @post.opinion %>
+
+    </div>
+  </div>
+</div>

@@ -12,6 +12,7 @@
          <div>
            title: <%= post.title %>
            opinion:  <%= post.opinion %>
+           <%= link_to "詳細", public_post_path(post)%>
          </div>
        <% end %>
     </div>

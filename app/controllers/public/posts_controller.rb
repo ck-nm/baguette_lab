@@ -23,11 +23,12 @@ class Public::PostsController < ApplicationController
   end
   
   def edit
+    @post = Post.find(params[:id])
   end
 
   def update
     if @post.update(post_params)
-      redirect_to post_path(@post), notice: "You have updated post successfully."
+      redirect_to public_post_path(@post), notice: "You have updated post successfully."
     else
       render "edit"
     end
@@ -35,19 +36,19 @@ class Public::PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path
+    redirect_to public_posts_path
   end
 
   private
 
   def post_params
-    params.permit(:title, :opinion)
+    params.require(:post).permit(:title, :opinion)
   end
 
-  def ensure_correct_user
+  def ensure_correct_public
     @post = Post.find(params[:id])
-    unless @post.user == current_user
-      redirect_to posts_path
+    unless @post.user == current_public
+      redirect_to public_posts_path
     end
   end
 end
