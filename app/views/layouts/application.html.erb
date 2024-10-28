@@ -21,11 +21,11 @@
             <li><%= link_to 'コメント一覧',  admin_comments_path %></li>
             <li><%= link_to 'レビュー一覧',  admin_reviews_path %></li>
             <li><%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %></li>
-          <% elsif public_signed_in? %>
+          <% elsif user_signed_in? %>
             
-            <li><%= link_to 'マイページ', public_mypage_path %></li>
-            <li><%= link_to '投稿一覧', public_posts_path %></li>
-            <li><%= link_to 'ログアウト', destroy_public_session_path, method: :delete %></li>
+            <li><%= link_to 'マイページ', user_path(current_user) %></li>
+            <li><%= link_to '投稿一覧', posts_path %></li>
+            <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
           <% end %>
         </ul>
 

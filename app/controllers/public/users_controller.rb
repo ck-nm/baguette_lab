@@ -1,21 +1,26 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_public!
-  before_action :ensure_correct_public, only: [:edit, :update]
+  before_action :authenticate_user!
+  # before_action :ensure_correct_user, only: [:edit, :update]
 
   def show
+    @user = User.find(params[:id])
+    @posts = @user.posts
+    @post = Post.new
   end
-  
+
   def index
     @publics = Public.all
     @post = Post.new
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
-    if @public.update(public_params)
-      redirect_to mypage_path, notice: '会員情報の更新が完了しました。'
+    @user = User.find(params[:id])
+    if @user.update!(user_params)
+      redirect_to user_path(@user), notice: '会員情報の更新が完了しました。'
     else
       render :edit
     end
@@ -32,11 +37,11 @@ class Public::UsersController < ApplicationController
 
   private
 
-  def set_current_public
-    @public = current_public
+  def set_current_user
+    @public = current_user
   end
 
-  def public_params
-    params.require(:public).permit(:name, :introduction, :image)
+  def user_params
+    params.require(:user).permit(:name, :introduction, :image)
   end
 end

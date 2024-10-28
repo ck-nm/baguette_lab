@@ -1,3 +1,3 @@
 class Post < ApplicationRecord
-  belongs_to :user, class_name: "Public", foreign_key: "public_id"
+  belongs_to :user, class_name: "User", foreign_key: "user_id"
 end

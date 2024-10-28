@@ -1,28 +1,33 @@
-<%
-  if post.id == nil
-    target_url = public_posts_path
-    target_method = :post
-  else
-    target_url = public_post_path(post)
-    target_method = :patch
-  end
-%>
 
-<%= form_with model: post, url: target_url, method: target_method, local: true do |f| %>
+      <%
+        if post.id == nil
+          target_url = posts_path
+          target_method = :post
+        else
+          target_url = post_path(post)
+          target_method = :patch
+        end
+      %>
 
-  <div class="form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control post_title' %>
+      <%= form_with model: post, url: target_url, method: target_method, local: true do |f| %>
+
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+
+        <div class="form-group">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: 'form-control post_title' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :opinion %>
+          <%= f.text_area :opinion, class: 'form-control post_body' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit class: 'btn btn-success' %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label :opinion %>
-    <%= f.text_area :opinion, class: 'form-control post_body' %>
-  </div>
-
-
-
-
-  <div class="form-group">
-    <%= f.submit class: 'btn btn-success' %>
-  </div>
-<% end %>
+</div>
